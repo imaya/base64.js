@@ -24,7 +24,6 @@
     <java jar="${compiler}" fork="true" failonerror="true">
       <arg line="--warning_level=VERBOSE"/>
       <arg line="--compilation_level=${level}"/>
-      <arg line="--define=BASE64_EXPORT=false"/>
       <arg line="--define=BASE64_BTOA_STRICT=true"/>
       <arg line="--output_wrapper='(function() {%output%}).call(this);'"/>
       <arg line="--summary_detail_level=3"/>
@@ -58,7 +57,6 @@
     <java jar="${compiler}" fork="true" failonerror="true">
         <arg line="--warning_level=VERBOSE"/>
         <arg line="--compilation_level=${level}"/>
-        <arg line="--define=BASE64_EXPORT=false"/>
         <arg line="--define=BASE64_BTOA_STRICT=false"/>
         <arg line="--output_wrapper='(function() {%output%}).call(this);'"/>
         <arg line="--summary_detail_level=3"/>
@@ -70,6 +68,7 @@
         <arg line="${src}/library.js"/>
         <arg line="${src}/base64.js"/>
         <arg line="${src}/safari.js"/>
+        <arg line="${src}/firefox.js"/>
     </java>
     <!-- ライセンスとビルドされたファイルをプロパティとして読み込む -->
     <local name="license"/>
@@ -93,16 +92,18 @@
         <java jar="${compiler}" fork="true" failonerror="true">
             <arg line="--warning_level=VERBOSE"/>
             <arg line="--compilation_level=${level}"/>
-            <arg line="--define=BASE64_EXPORT=true"/>
             <arg line="--define=BASE64_BTOA_STRICT=true"/>
             <arg line="--output_wrapper='(function() {%output%}).call(this);'"/>
             <arg line="--summary_detail_level=3"/>
             <arg line="--language_in=ECMASCRIPT5_STRICT"/>
             <arg line="--js_output_file=${outfile}.tmp"/>
             <arg line="--only_closure_dependencies=true"/>
-            <arg line="--closure_entry_point Base64"/>
+            <arg line="--closure_entry_point Library"/>
             <arg line="--process_closure_primitives=true"/>
+            <arg line="${src}/library.js"/>
             <arg line="${src}/base64.js"/>
+            <arg line="${src}/safari.js"/>
+            <arg line="${src}/firefox.js"/>
         </java>
         <!-- ライセンスとビルドされたファイルをプロパティとして読み込む -->
         <local name="license"/>
